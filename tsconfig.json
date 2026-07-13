@@ -10,10 +10,14 @@
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+
+    "ignoreDeprecations": "5.0",
+
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
     },
+
     "types": ["vite/client"]
   },
   "include": ["src"]
