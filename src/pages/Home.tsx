@@ -20,12 +20,25 @@ import { AssistantOrb } from "@/components/universe/AssistantOrb";
 import { EasterEggs } from "@/components/universe/EasterEggs";
 import { Cursor } from "@/components/universe/Cursor";
 import { JarvisLabel } from "@/components/universe/JarvisLabel";
+import { useEffect, useState } from "react";
 
 
 export default function Home() {
+  const [isMobile, setIsMobile] = useState(false);
+
+useEffect(() => {
+  const media = window.matchMedia("(pointer: coarse), (max-width:768px)");
+  const update = () => setIsMobile(media.matches);
+
+  update();
+
+  media.addEventListener?.("change", update);
+
+  return () => media.removeEventListener?.("change", update);
+}, []);
   return (
     <div className="relative min-h-screen overflow-x-hidden">
-      <Cursor />
+      {!isMobile && <Cursor />}
       <EasterEggs />
       <TopBar />
       <CommandPalette />

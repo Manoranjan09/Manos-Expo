@@ -26,6 +26,18 @@ export function GlassCard({
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+useEffect(() => {
+  const media = window.matchMedia("(pointer: coarse), (max-width: 768px)");
+  const update = () => setIsMobile(media.matches);
+
+  update();
+
+  media.addEventListener?.("change", update);
+
+  return () => media.removeEventListener?.("change", update);
+}, []);
 
   useEffect(() => {
     try {
@@ -62,14 +74,28 @@ export function GlassCard({
     <motion.div
       ref={ref}
       id={id}
-      drag
-      dragMomentum={false}
-      dragElastic={0.15}
+      drag={!isMobile}
+      dragMomentum={!isMobile}
+      dragElastic={isMobile ? 0 : 0.15}
       dragTransition={{ bounceStiffness: 300, bounceDamping: 24 }}
       onDragEnd={persist}
-      whileDrag={{ scale: 1.02, zIndex: 50 }}
-      style={{ x, y, rotateX: rx, rotateY: ry, transformPerspective: 1000 }}
+      whileDrag={
+  isMobile
+    ? undefined
+    : {
+        scale: 1.02,
+        zIndex: 50,
+      }
+}
+      style={{
+  x,
+  y,
+  rotateX: isMobile ? 0 : rx,
+  rotateY: isMobile ? 0 : ry,
+  transformPerspective: 1000,
+}}
       onPointerMove={(e) => {
+        if (isMobile) return;
         const r = ref.current?.getBoundingClientRect();
         if (!r) return;
         const px = (e.clientX - r.left) / r.width;
