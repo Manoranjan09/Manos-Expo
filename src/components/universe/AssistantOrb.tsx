@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Send, X } from "lucide-react";
 import { profile, projects, education, achievements } from "@/data/universe";
@@ -67,6 +67,44 @@ export function AssistantOrb() {
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState(false);
 const [thinking, setThinking] = useState(false);
+const [isMobile, setIsMobile] = useState(false);
+const [bootText, setBootText] = useState("");
+const [bootDone, setBootDone] = useState(false);
+useEffect(() => {
+  if (!isMobile) return;
+
+  const text = "JARVIS";
+
+  let index = 0;
+
+  const timer = setInterval(() => {
+    index++;
+
+    setBootText(text.slice(0, index));
+
+    if (index === text.length) {
+      clearInterval(timer);
+
+      setTimeout(() => {
+        setBootDone(true);
+      }, 300);
+    }
+  }, 120);
+
+  return () => clearInterval(timer);
+}, [isMobile]);
+
+useEffect(() => {
+  const media = window.matchMedia("(pointer: coarse), (max-width:768px)");
+
+  const update = () => setIsMobile(media.matches);
+
+  update();
+
+  media.addEventListener?.("change", update);
+
+  return () => media.removeEventListener?.("change", update);
+}, []);
   const [msgs, setMsgs] = useState<Msg[]>([
     { from: "ai", text: `Hi, I'm ${profile.name.split(" ")[0]}'s assistant. Ask me anything about him.` },
   ]);
@@ -104,105 +142,126 @@ const [thinking, setThinking] = useState(false);
   {/* Glow */}
   <div className="absolute inset-0 rounded-full bg-orange-500/20 blur-2xl" />
 
-  {/* OUTER SEGMENT */}
-  <motion.div
-    animate={{ rotate: 360 }}
-    transition={{
-      repeat: Infinity,
-      duration: 18,
-      ease: "linear",
-    }}
-    className="absolute h-20 w-20 rounded-full"
-    style={{
-      background:
-        "conic-gradient(from 0deg,#f97316 0deg,#f97316 45deg,transparent 45deg 90deg,#fb923c 90deg 140deg,transparent 140deg 210deg,#f97316 210deg 260deg,transparent 260deg 360deg)",
-      WebkitMask:
-        "radial-gradient(circle,transparent 63%,black 64%)",
-      mask:
-        "radial-gradient(circle,transparent 63%,black 64%)",
-    }}
-  />
+{/* Heavy Rings - Desktop OR Mobile when chat is open */}
+{(!isMobile || open) && (
+  <>
+    {/* OUTER SEGMENT */}
+    <motion.div
+      animate={{ rotate: 360 }}
+      transition={{
+        repeat: Infinity,
+        duration: 18,
+        ease: "linear",
+      }}
+      className="absolute h-20 w-20 rounded-full"
+      style={{
+        background:
+          "conic-gradient(from 0deg,#f97316 0deg,#f97316 45deg,transparent 45deg 90deg,#fb923c 90deg 140deg,transparent 140deg 210deg,#f97316 210deg 260deg,transparent 260deg 360deg)",
+        WebkitMask:
+          "radial-gradient(circle,transparent 63%,black 64%)",
+        mask:
+          "radial-gradient(circle,transparent 63%,black 64%)",
+      }}
+    />
 
-  {/* SECOND RING */}
-  <motion.div
-    animate={{ rotate: -360 }}
-    transition={{
-      repeat: Infinity,
-      duration: 9,
-      ease: "linear",
-    }}
-    className="absolute h-16 w-16 rounded-full"
-    style={{
-      background:
-        "conic-gradient(#fb923c 0deg,#fb923c 25deg,transparent 25deg 70deg,#f97316 70deg 120deg,transparent 120deg 360deg)",
-      WebkitMask:
-        "radial-gradient(circle,transparent 70%,black 71%)",
-      mask:
-        "radial-gradient(circle,transparent 70%,black 71%)",
-    }}
-  />
+    {/* SECOND RING */}
+    <motion.div
+      animate={{ rotate: -360 }}
+      transition={{
+        repeat: Infinity,
+        duration: 9,
+        ease: "linear",
+      }}
+      className="absolute h-16 w-16 rounded-full"
+      style={{
+        background:
+          "conic-gradient(#fb923c 0deg,#fb923c 25deg,transparent 25deg 70deg,#f97316 70deg 120deg,transparent 120deg 360deg)",
+        WebkitMask:
+          "radial-gradient(circle,transparent 70%,black 71%)",
+        mask:
+          "radial-gradient(circle,transparent 70%,black 71%)",
+      }}
+    />
 
-  {/* Scanner Ring */}
-  <motion.div
-    animate={{ rotate: 360 }}
-    transition={{
-      repeat: Infinity,
-      duration: 3,
-      ease: "linear",
-    }}
-    className="absolute h-12 w-12 rounded-full border border-orange-400/40"
-  >
-    <div className="absolute left-1/2 top-0 h-2 w-[2px] -translate-x-1/2 bg-orange-300 shadow-[0_0_10px_#fb923c]" />
-  </motion.div>
+    {/* Scanner Ring */}
+    <motion.div
+      animate={{ rotate: 360 }}
+      transition={{
+        repeat: Infinity,
+        duration: 3,
+        ease: "linear",
+      }}
+      className="absolute h-12 w-12 rounded-full border border-orange-400/40"
+    >
+      <div className="absolute left-1/2 top-0 h-2 w-[2px] -translate-x-1/2 bg-orange-300 shadow-[0_0_10px_#fb923c]" />
+    </motion.div>
 
-  {/* Pulse Ring */}
-  <motion.div
-    animate={{
-      scale: [1, 1.3, 1],
-      opacity: [0.4, 0, 0.4],
-    }}
-    transition={{
-      repeat: Infinity,
-      duration: 2,
-    }}
-    className="absolute h-8 w-8 rounded-full border border-orange-400"
-  />
-
-  {/* Core */}
-  <motion.div
-    animate={{
-      scale: [1, 1.15, 1],
-      boxShadow: [
-        "0 0 12px #f97316",
-        "0 0 28px #fb923c",
-        "0 0 12px #f97316",
-      ],
-    }}
-    transition={{
-      repeat: Infinity,
-      duration: 1.6,
-    }}
-    className="relative h-5 w-5 rounded-full bg-gradient-to-br from-orange-300 to-orange-600"
-  />
-
-  {/* Orbit Dot */}
-  <motion.div
-    animate={{ rotate: -360 }}
-    transition={{
-      repeat: Infinity,
-      duration: 5,
-      ease: "linear",
-    }}
-    className="absolute h-14 w-14"
-  >
-    <div className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 rounded-full bg-orange-300 shadow-[0_0_12px_#fb923c]" />
-  </motion.div>
-</motion.button>
-<JarvisLabel
-    hovered={hovered}
-    open={open}
-    thinking={thinking}
+    {/* Orbit Dot */}
+    <motion.div
+      animate={{ rotate: -360 }}
+      transition={{
+        repeat: Infinity,
+        duration: 5,
+        ease: "linear",
+      }}
+      className="absolute h-14 w-14"
+    >
+      <div className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 rounded-full bg-orange-300 shadow-[0_0_12px_#fb923c]" />
+    </motion.div>
+  </>
+)}
+{/* Mobile Boot Label */}
+{isMobile && (
+  <div className="absolute left-1/2 top-full -translate-x-1/2 -translate-y-1">
+    <div className="whitespace-nowrap font-mono text-[9px] font-semibold tracking-[0.15em] text-orange-300">
+      
+      {bootText}
+      {!bootDone && (
+        <span className="animate-pulse text-orange-400">▌</span>
+      )}
+    </div>
+  </div>
+)}
+{/* Pulse Ring - Always visible */}
+<motion.div
+  animate={{
+    scale: [1, 1.25, 1],
+    opacity: [0.35, 0, 0.35],
+  }}
+  transition={{
+    repeat: Infinity,
+    duration: isMobile && !open ? 3.5 : 2,
+    ease: "easeInOut",
+  }}
+  className="absolute h-8 w-8 rounded-full border border-orange-400"
 />
+
+{/* Core - Always visible */}
+<motion.div
+  animate={{
+    scale: [1, 1.1, 1],
+    boxShadow: [
+      "0 0 10px #f97316",
+      "0 0 22px #fb923c",
+      "0 0 10px #f97316",
+    ],
+  }}
+  transition={{
+    repeat: Infinity,
+    duration: isMobile && !open ? 3 : 1.6,
+    ease: "easeInOut",
+  }}
+  className="relative h-5 w-5 rounded-full bg-gradient-to-br from-orange-300 to-orange-600"
+/>
+
+</motion.button>
+{!window.matchMedia("(pointer: coarse), (max-width:768px)").matches && (
+  <JarvisLabel
+    hovered={false}
+    open={false}
+    thinking={false}
+  />
+)}
       <AnimatePresence>
         {open && (
           <motion.div

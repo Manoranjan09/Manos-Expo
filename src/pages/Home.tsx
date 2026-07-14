@@ -44,11 +44,7 @@ useEffect(() => {
       <CommandPalette />
       <Terminal />
       <AssistantOrb />
-      <JarvisLabel
-  hovered={false}
-  open={false}
-  thinking={false}
-/>
+
       <BackgroundHUD />
 
 <main className="relative z-10 mx-auto w-full max-w-[1400px] px-4 py-6">
