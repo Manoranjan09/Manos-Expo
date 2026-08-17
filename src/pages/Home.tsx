@@ -21,6 +21,7 @@ import { EasterEggs } from "@/components/universe/EasterEggs";
 import { Cursor } from "@/components/universe/Cursor";
 import { JarvisLabel } from "@/components/universe/JarvisLabel";
 import { useEffect, useState } from "react";
+import { CertificationsCard } from "@/components/universe/CertificationsCard";
 
 
 export default function Home() {
@@ -57,7 +58,16 @@ useEffect(() => {
           <GlassCard id="now" span="sm" className="lg:col-span-3"><NowBuildingCard /></GlassCard>
 
           <GlassCard id="education" span="lg"><EducationCard /></GlassCard>
-          <GlassCard id="stats" span="md"><StatsCard /></GlassCard>
+
+
+<GlassCard id="certifications" span="lg">
+  <CertificationsCard />
+</GlassCard>
+
+<GlassCard id="stats" span="md">
+  <StatsCard />
+</GlassCard>
+          
           <GlassCard id="resume" span="sm" className="lg:col-span-3"><ResumeCard /></GlassCard>
 
           <GlassCard id="achievements" span="md"><AchievementsCard /></GlassCard>

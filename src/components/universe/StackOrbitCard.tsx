@@ -1,22 +1,42 @@
 import { useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, ExternalLink, Sparkles } from "lucide-react";
-import { technologies, projects as allProjects, type Tech, type TechCategory } from "@/data/universe";
+import {
+  technologies,
+  projects as allProjects,
+  type Tech,
+  type TechCategory,
+} from "@/data/universe";
 
 const CATEGORIES: ("All" | TechCategory)[] = [
   "All",
   "Frontend",
   "Backend",
   "AI",
+  "Testing",
   "Database",
   "Cloud",
   "DevOps",
   "Tools",
 ];
 
-const RING_RADIUS: Record<Tech["ring"], number> = { inner: 60, middle: 105, outer: 155 };
-const RING_DURATION: Record<Tech["ring"], number> = { inner: 38, middle: 62, outer: 92 };
-const RING_REVERSE: Record<Tech["ring"], boolean> = { inner: false, middle: true, outer: false };
+const RING_RADIUS: Record<Tech["ring"], number> = {
+  inner: 60,
+  middle: 105,
+  outer: 155,
+};
+
+const RING_DURATION: Record<Tech["ring"], number> = {
+  inner: 38,
+  middle: 62,
+  outer: 92,
+};
+
+const RING_REVERSE: Record<Tech["ring"], boolean> = {
+  inner: false,
+  middle: true,
+  outer: false,
+};
 
 function Planet({
   tech,
@@ -42,7 +62,7 @@ function Planet({
   const radius = RING_RADIUS[tech.ring];
   const duration = RING_DURATION[tech.ring];
   const reverse = RING_REVERSE[tech.ring];
-  const delay = -((index / count) * duration);
+  const delay = -((index / Math.max(count, 1)) * duration);
   const ref = useRef<HTMLButtonElement>(null);
 
   return (
@@ -68,7 +88,13 @@ function Planet({
             ref={ref}
             onPointerEnter={() => {
               const r = ref.current?.getBoundingClientRect();
-              if (r) onHover(tech, { x: r.left + r.width / 2, y: r.top });
+
+              if (r) {
+                onHover(tech, {
+                  x: r.left + r.width / 2,
+                  y: r.top,
+                });
+              }
             }}
             onPointerLeave={onLeave}
             onClick={() => onClick(tech)}
@@ -77,7 +103,11 @@ function Planet({
               opacity: dimmed ? 0.2 : 1,
               scale: highlighted ? 1.35 : 1,
             }}
-            transition={{ type: "spring", stiffness: 300, damping: 22 }}
+            transition={{
+              type: "spring",
+              stiffness: 300,
+              damping: 22,
+            }}
             className="relative grid h-8 w-8 place-items-center rounded-full border border-white/15 bg-white/5 text-[10px] font-bold text-white backdrop-blur-md transition-colors hover:bg-white/15"
             style={{
               boxShadow: highlighted
@@ -92,6 +122,7 @@ function Planet({
                 background: `radial-gradient(circle at 30% 30%, ${tech.color}55, transparent 70%)`,
               }}
             />
+
             <span className="relative">{tech.short}</span>
           </motion.button>
         </div>
@@ -102,38 +133,80 @@ function Planet({
 
 export function StackOrbitCard() {
   const [filter, setFilter] = useState<"All" | TechCategory>("All");
-  const [hover, setHover] = useState<{ tech: Tech; x: number; y: number } | null>(null);
+
+  const [hover, setHover] = useState<{
+    tech: Tech;
+    x: number;
+    y: number;
+  } | null>(null);
+
   const [selected, setSelected] = useState<Tech | null>(null);
+
   const [coreTaps, setCoreTaps] = useState(0);
   const [supernova, setSupernova] = useState(false);
 
   const shown = useMemo(
-    () => technologies.filter((t) => filter === "All" || t.category === filter),
+    () =>
+      technologies.filter(
+        (t) => filter === "All" || t.category === filter,
+      ),
     [filter],
   );
+
   const byRing = useMemo(() => {
-    const groups: Record<Tech["ring"], Tech[]> = { inner: [], middle: [], outer: [] };
-    for (const t of shown) groups[t.ring].push(t);
+    const groups: Record<Tech["ring"], Tech[]> = {
+      inner: [],
+      middle: [],
+      outer: [],
+    };
+
+    for (const tech of shown) {
+      groups[tech.ring].push(tech);
+    }
+
     return groups;
   }, [shown]);
 
   const stats = useMemo(() => {
-    const by = (c: TechCategory) => technologies.filter((t) => t.category === c).length;
+    const by = (category: TechCategory) =>
+      technologies.filter((tech) => tech.category === category).length;
+
     return [
-      { label: "Total", value: technologies.length },
-      { label: "AI", value: by("AI") },
-      { label: "Frontend", value: by("Frontend") },
-      { label: "Backend", value: by("Backend") },
+      {
+        label: "Total",
+        value: technologies.length,
+      },
+      {
+        label: "AI",
+        value: by("AI"),
+      },
+      {
+        label: "Frontend",
+        value: by("Frontend"),
+      },
+      {
+        label: "Backend",
+        value: by("Backend"),
+      },
+      {
+        label: "Testing",
+        value: by("Testing"),
+      },
     ];
   }, []);
 
   const handleCoreTap = () => {
-    const n = coreTaps + 1;
-    setCoreTaps(n);
-    if (n >= 5) {
+    const next = coreTaps + 1;
+
+    setCoreTaps(next);
+
+    if (next >= 5) {
       setSupernova(true);
       setCoreTaps(0);
-      setTimeout(() => setSupernova(false), 2600);
+
+      setTimeout(() => {
+        setSupernova(false);
+      }, 2600);
     }
   };
 
@@ -142,17 +215,27 @@ export function StackOrbitCard() {
       {/* Header */}
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="min-w-0">
-          <div className="text-xs uppercase tracking-[0.2em] text-white/40">Constellation</div>
-          <div className="text-lg font-semibold text-white">Technology Solar System</div>
+          <div className="text-xs uppercase tracking-[0.2em] text-white/40">
+            Constellation
+          </div>
+
+          <div className="text-lg font-semibold text-white">
+            Technology Solar System
+          </div>
         </div>
+
         <div className="flex flex-wrap gap-1.5">
-          {stats.map((s) => (
+          {stats.map((stat) => (
             <div
-              key={s.label}
+              key={stat.label}
               className="rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-[10px] leading-none text-white/70 backdrop-blur"
             >
-              <span className="font-bold text-white">{s.value}</span>{" "}
-              <span className="text-white/50">{s.label}</span>
+              <span className="font-bold text-white">
+                {stat.value}
+              </span>{" "}
+              <span className="text-white/50">
+                {stat.label}
+              </span>
             </div>
           ))}
         </div>
@@ -160,23 +243,23 @@ export function StackOrbitCard() {
 
       {/* Filter chips */}
       <div className="flex flex-wrap gap-1.5">
-        {CATEGORIES.map((c) => (
+        {CATEGORIES.map((category) => (
           <button
-            key={c}
-            onClick={() => setFilter(c)}
+            key={category}
+            onClick={() => setFilter(category)}
             className={`rounded-full px-2.5 py-0.5 text-[11px] transition ${
-              filter === c
+              filter === category
                 ? "bg-white text-black"
                 : "border border-white/10 bg-white/5 text-white/70 hover:bg-white/10"
             }`}
           >
-            {c}
+            {category}
           </button>
         ))}
       </div>
 
       {/* Solar system */}
-      <div className="relative mt-1 flex-1 min-h-[340px]">
+      <div className="relative mt-1 min-h-[340px] flex-1">
         {/* Orbit rings */}
         {(["inner", "middle", "outer"] as const).map((ring) => (
           <div
@@ -193,22 +276,40 @@ export function StackOrbitCard() {
         {/* Planets */}
         <motion.div
           animate={supernova ? { scale: 1.35 } : { scale: 1 }}
-          transition={{ type: "spring", stiffness: 120, damping: 14 }}
+          transition={{
+            type: "spring",
+            stiffness: 120,
+            damping: 14,
+          }}
           className="absolute inset-0"
         >
           {(["inner", "middle", "outer"] as const).map((ring) =>
-            byRing[ring].map((tech, i) => (
+            byRing[ring].map((tech, index) => (
               <Planet
                 key={tech.name}
                 tech={tech}
-                index={i}
+                index={index}
                 count={byRing[ring].length}
-                paused={hover?.tech.name === tech.name || supernova}
-                dimmed={!!hover && hover.tech.name !== tech.name}
-                highlighted={hover?.tech.name === tech.name}
-                onHover={(t, pos) => setHover({ tech: t, x: pos.x, y: pos.y })}
+                paused={
+                  hover?.tech.name === tech.name || supernova
+                }
+                dimmed={
+                  !!hover && hover.tech.name !== tech.name
+                }
+                highlighted={
+                  hover?.tech.name === tech.name
+                }
+                onHover={(selectedTech, position) =>
+                  setHover({
+                    tech: selectedTech,
+                    x: position.x,
+                    y: position.y,
+                  })
+                }
                 onLeave={() => setHover(null)}
-                onClick={(t) => setSelected(t)}
+                onClick={(selectedTech) =>
+                  setSelected(selectedTech)
+                }
               />
             )),
           )}
@@ -220,29 +321,56 @@ export function StackOrbitCard() {
             onClick={handleCoreTap}
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.94 }}
-            animate={{ boxShadow: supernova ? "0 0 120px oklch(0.85 0.2 55)" : "0 0 50px oklch(0.78 0.18 55)" }}
+            animate={{
+              boxShadow: supernova
+                ? "0 0 120px oklch(0.85 0.2 55)"
+                : "0 0 50px oklch(0.78 0.18 55)",
+            }}
             className="relative grid h-16 w-16 place-items-center rounded-full bg-gradient-to-br from-orange-400 to-rose-500 text-sm font-bold text-black"
           >
             <motion.span
               className="absolute inset-0 rounded-full"
-              animate={{ scale: [1, 1.25, 1], opacity: [0.5, 0, 0.5] }}
-              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-              style={{ background: "radial-gradient(circle, oklch(0.85 0.2 55 / 0.6), transparent 60%)" }}
+              animate={{
+                scale: [1, 1.25, 1],
+                opacity: [0.5, 0, 0.5],
+              }}
+              transition={{
+                duration: 2.4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              style={{
+                background:
+                  "radial-gradient(circle, oklch(0.85 0.2 55 / 0.6), transparent 60%)",
+              }}
             />
+
             <span className="relative flex items-center gap-1">
-              <Sparkles className="h-3 w-3" /> AI
+              <Sparkles className="h-3 w-3" />
+              AI
             </span>
           </motion.button>
         </div>
 
-        {/* Supernova burst */}
+        {/* Supernova */}
         <AnimatePresence>
           {supernova && (
             <motion.div
-              initial={{ scale: 0, opacity: 0.9 }}
-              animate={{ scale: 6, opacity: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 2.2, ease: "easeOut" }}
+              initial={{
+                scale: 0,
+                opacity: 0.9,
+              }}
+              animate={{
+                scale: 6,
+                opacity: 0,
+              }}
+              exit={{
+                opacity: 0,
+              }}
+              transition={{
+                duration: 2.2,
+                ease: "easeOut",
+              }}
               className="pointer-events-none absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full"
               style={{
                 background:
@@ -261,32 +389,65 @@ export function StackOrbitCard() {
       <AnimatePresence>
         {hover && (
           <motion.div
-            initial={{ opacity: 0, y: 6, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 6, scale: 0.96 }}
-            transition={{ duration: 0.15 }}
+            initial={{
+              opacity: 0,
+              y: 6,
+              scale: 0.96,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              scale: 1,
+            }}
+            exit={{
+              opacity: 0,
+              y: 6,
+              scale: 0.96,
+            }}
+            transition={{
+              duration: 0.15,
+            }}
             style={{
               position: "fixed",
-              left: Math.min(Math.max(hover.x - 110, 12), window.innerWidth - 232),
+              left: Math.min(
+                Math.max(hover.x - 110, 12),
+                window.innerWidth - 232,
+              ),
               top: Math.max(hover.y - 120, 12),
               zIndex: 130,
             }}
             className="pointer-events-none w-56 rounded-2xl border border-white/15 bg-black/80 p-3 text-white shadow-2xl backdrop-blur-xl"
           >
             <div className="flex items-center justify-between">
-              <div className="text-sm font-semibold">{hover.tech.name}</div>
-              <div className="text-[10px] tracking-widest text-white/50">{hover.tech.category}</div>
+              <div className="text-sm font-semibold">
+                {hover.tech.name}
+              </div>
+
+              <div className="text-[10px] tracking-widest text-white/50">
+                {hover.tech.category}
+              </div>
             </div>
+
             <div className="mt-1 text-[11px] text-amber-300">
               {"★".repeat(hover.tech.level)}
-              <span className="text-white/100">{"★".repeat(5 - hover.tech.level)}</span>
+              <span className="text-white/100">
+                {"★".repeat(5 - hover.tech.level)}
+              </span>
             </div>
-            <div className="mt-1 text-[11px] text-white/60">{hover.tech.years}</div>
+
+            <div className="mt-1 text-[11px] text-white/60">
+              {hover.tech.years}
+            </div>
+
             {hover.tech.projects.length > 0 && (
               <div className="mt-2 text-[11px] text-white/70">
                 Used in{" "}
-                <span className="font-semibold text-white">{hover.tech.projects.length}</span>{" "}
-                {hover.tech.projects.length === 1 ? "project" : "projects"}
+                <span className="font-semibold text-white">
+                  {hover.tech.projects.length}
+                </span>{" "}
+                {hover.tech.projects.length === 1
+                  ? "project"
+                  : "projects"}
               </div>
             )}
           </motion.div>
@@ -297,18 +458,40 @@ export function StackOrbitCard() {
       <AnimatePresence>
         {selected && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            exit={{
+              opacity: 0,
+            }}
             onClick={() => setSelected(null)}
             className="fixed inset-0 z-[140] grid place-items-end bg-black/60 backdrop-blur-md sm:place-items-center"
           >
             <motion.div
-              initial={{ y: 60, opacity: 0, scale: 0.96 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: 60, opacity: 0, scale: 0.96 }}
-              transition={{ type: "spring", stiffness: 240, damping: 26 }}
-              onClick={(e) => e.stopPropagation()}
+              initial={{
+                y: 60,
+                opacity: 0,
+                scale: 0.96,
+              }}
+              animate={{
+                y: 0,
+                opacity: 1,
+                scale: 1,
+              }}
+              exit={{
+                y: 60,
+                opacity: 0,
+                scale: 0.96,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 240,
+                damping: 26,
+              }}
+              onClick={(event) => event.stopPropagation()}
               className="relative w-full max-w-md rounded-t-3xl border border-white/10 bg-neutral-950/95 p-6 text-white shadow-2xl sm:rounded-3xl"
             >
               <button
@@ -328,8 +511,12 @@ export function StackOrbitCard() {
                 >
                   {selected.short}
                 </div>
+
                 <div className="min-w-0">
-                  <div className="truncate text-xl font-bold">{selected.name}</div>
+                  <div className="truncate text-xl font-bold">
+                    {selected.name}
+                  </div>
+
                   <div className="text-[11px] uppercase tracking-widest text-white/50">
                     {selected.category} · {selected.years}
                   </div>
@@ -341,22 +528,35 @@ export function StackOrbitCard() {
                   <div className="text-[10px] uppercase tracking-widest text-white/40">
                     Proficiency
                   </div>
+
                   <div className="mt-1 text-amber-300">
                     {"★".repeat(selected.level)}
-                    <span className="text-white/120">{"★".repeat(5 - selected.level)}</span>
+
+                    <span className="text-white/120">
+                      {"★".repeat(5 - selected.level)}
+                    </span>
                   </div>
                 </div>
+
                 <div className="rounded-xl border border-white/10 bg-white/5 p-3">
                   <div className="text-[10px] uppercase tracking-widest text-white/40">
                     Projects
                   </div>
-                  <div className="mt-1 text-lg font-bold">{selected.projects.length}</div>
+
+                  <div className="mt-1 text-lg font-bold">
+                    {selected.projects.length}
+                  </div>
                 </div>
               </div>
 
               <div className="mt-4">
-                <div className="text-[10px] uppercase tracking-widest text-white/40">Why I use it</div>
-                <p className="mt-1 text-sm text-white/80">{selected.why}</p>
+                <div className="text-[10px] uppercase tracking-widest text-white/40">
+                  Why I use it
+                </div>
+
+                <p className="mt-1 text-sm text-white/80">
+                  {selected.why}
+                </p>
               </div>
 
               {selected.projects.length > 0 && (
@@ -364,19 +564,27 @@ export function StackOrbitCard() {
                   <div className="text-[10px] uppercase tracking-widest text-white/40">
                     Powering these projects
                   </div>
+
                   <div className="mt-2 flex flex-col gap-1.5">
-                    {selected.projects.map((pid) => {
-                      const p = allProjects.find((x) => x.id === pid);
-                      if (!p) return null;
+                    {selected.projects.map((projectId) => {
+                      const project = allProjects.find(
+                        (item) => item.id === projectId,
+                      );
+
+                      if (!project) return null;
+
                       return (
                         <a
-                          key={pid}
-                          href={p.live}
+                          key={projectId}
+                          href={project.live}
                           target="_blank"
                           rel="noreferrer"
                           className="group flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm transition hover:border-white/20 hover:bg-white/10"
                         >
-                          <span className="truncate font-medium text-white">{p.name}</span>
+                          <span className="truncate font-medium text-white">
+                            {project.name}
+                          </span>
+
                           <ExternalLink className="h-3.5 w-3.5 text-white/40 group-hover:text-white" />
                         </a>
                       );

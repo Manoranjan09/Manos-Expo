@@ -30,8 +30,8 @@ export const site = {
 
 export const profile = {
   name: "Manoranjan Kumar",
-  role: "AI Engineer · Full Stack Developer · Product Builder",
-  location: "Chandigarh · Mohali · Kharar, India",
+  role: "GenAI Engineer · Full Stack Developer · Playwright Automation Engineer",
+  location: "India · Open to Remote & Relocation",
   status: "Available for Internships, Full-Time, Freelance & Open Source",
   availability: "Open to opportunities",
   avatar: profileImage,
@@ -39,7 +39,7 @@ export const profile = {
     line1: "Engineering ideas",
     line2: "into products people love.",
   },
-  bio: "Computer Science Engineering student passionate about Artificial Intelligence, Full Stack Development, and building products that solve real-world problems. I enjoy transforming ideas into scalable applications using modern technologies like React, Next.js, FastAPI, Firebase, LangChain, and Generative AI. My goal is to build software that is not only functional but also beautifully designed and impactful.",
+  bio: "GenAI Engineer and Full Stack Developer with hands-on experience building AI-powered web applications, RAG solutions, and scalable software products. Skilled in React, Next.js, FastAPI, LangChain, LangGraph, and modern cloud technologies, with additional expertise in Playwright-based test automation and end-to-end testing. I enjoy building reliable, production-ready software where intelligent AI meets clean engineering and thoughtful user experience.",
   stats: [
     { label: "Years Coding", value: "3+" },
     { label: "Projects Built", value: "20+" },
@@ -62,7 +62,43 @@ export const profile = {
     secondary: { label: "Download Resume", target: resume },
   },
 };
+export const certifications = [
+  {
+    id: "playwright-automation",
+    name: "Playwright Automation Testing",
+    issuer: "Rahul Shetty Academy",
+    category: "Automation Testing",
+    year: "2026",
+    description:
+      "Certification focused on browser automation and end-to-end testing using Playwright with JavaScript and TypeScript.",
+    link: "https://drive.google.com/file/d/1rF8xGz0MvBsF2W8iECLj79rFswWGgUAg/view?usp=sharing",
+    featured: true,
+  },
 
+  {
+    id: "cloud-computing",
+    name: "Cloud Computing",
+    issuer: "NPTEL/IIT Kharagpur",
+    category: "Cloud Computing",
+    year: "2024",
+    description:
+      "NPTEL certification in Cloud Computing.",
+    link: "https://drive.google.com/file/d/1OINoVpAk-ux5G7q6BSnpS8jAXEIkm7Tw/view",
+    featured: false,
+  },
+
+  {
+    id: "Java FullStack Developer",
+    name: "Java FullStack Developer",
+    issuer: "Coursera",
+    category: "Professional Certification",
+    year: "2025",
+    description:
+      "Professional certification completed through Coursera.",
+    link: "https://drive.google.com/file/d/1kSAtu6uMhThds5aun2xBxYbXlT-bLEo8/view?usp=sharing",
+    featured: false,
+  },
+];
 export const projects = [
   {
     id: "gym-os",
@@ -143,7 +179,7 @@ export const stack = {
   outer: ["Firebase", "PostgreSQL", "MySQL", "Git", "GitHub", "Linux", "Vercel", "Docker"],
 };
 
-export type TechCategory = "AI" | "Frontend" | "Backend" | "Database" | "Cloud" | "DevOps" | "Tools";
+export type TechCategory = "AI" | "Frontend" | "Backend" | "Database" | "Cloud" | "DevOps" | "Tools" | "Testing";
 
 export type Tech = {
   name: string;
@@ -156,36 +192,313 @@ export type Tech = {
   why: string;
   color: string;
 };
-
 export const technologies: Tech[] = [
   // Inner — AI / Backend core
-  { name: "Python", short: "Py", category: "Backend", ring: "inner", level: 5, years: "3+ yrs", projects: ["fitmind-ai", "ssc-prep", "gym-os", "medora"], why: "Fastest way from idea to working AI prototype.", color: "#facc15" },
-  { name: "FastAPI", short: "FA", category: "Backend", ring: "inner", level: 5, years: "2+ yrs", projects: ["gym-os", "fitmind-ai", "ssc-prep", "medora", "lendflow"], why: "Type-safe, async, and effortless to deploy.", color: "#22d3ee" },
-  { name: "LangChain", short: "LC", category: "AI", ring: "inner", level: 4, years: "1.5+ yrs", projects: ["fitmind-ai", "ssc-prep"], why: "Compose LLMs, tools, and memory cleanly.", color: "#a78bfa" },
-  { name: "HuggingFace", short: "HF", category: "AI", ring: "inner", level: 4, years: "1.5+ yrs", projects: ["ssc-prep"], why: "The open-source home of modern ML.", color: "#fbbf24" },
-  { name: "Groq", short: "Gq", category: "AI", ring: "inner", level: 4, years: "1+ yr", projects: ["fitmind-ai"], why: "Blazing-fast inference for real-time UX.", color: "#fb7185" },
-  { name: "OpenAI", short: "AI", category: "AI", ring: "inner", level: 4, years: "2+ yrs", projects: ["fitmind-ai", "ssc-prep"], why: "The reliable planner behind agent workflows.", color: "#34d399" },
+  {
+    name: "Python",
+    short: "Py",
+    category: "Backend",
+    ring: "inner",
+    level: 5,
+    years: "3+ yrs",
+    projects: ["fitmind-ai", "ssc-prep", "gym-os", "medora"],
+    why: "Fastest way from idea to working AI prototype.",
+    color: "#facc15",
+  },
+  {
+    name: "FastAPI",
+    short: "FA",
+    category: "Backend",
+    ring: "inner",
+    level: 5,
+    years: "2+ yrs",
+    projects: ["gym-os", "fitmind-ai", "ssc-prep", "medora", "lendflow"],
+    why: "Type-safe, async, and effortless to deploy.",
+    color: "#22d3ee",
+  },
+  {
+    name: "LangChain",
+    short: "LC",
+    category: "AI",
+    ring: "inner",
+    level: 4,
+    years: "1.5+ yrs",
+    projects: ["fitmind-ai", "ssc-prep"],
+    why: "Compose LLMs, tools, and memory cleanly.",
+    color: "#a78bfa",
+  },
+  {
+    name: "HuggingFace",
+    short: "HF",
+    category: "AI",
+    ring: "inner",
+    level: 4,
+    years: "1.5+ yrs",
+    projects: ["ssc-prep"],
+    why: "The open-source home of modern ML.",
+    color: "#fbbf24",
+  },
+  {
+    name: "Groq",
+    short: "Gq",
+    category: "AI",
+    ring: "inner",
+    level: 4,
+    years: "1+ yr",
+    projects: ["fitmind-ai"],
+    why: "Blazing-fast inference for real-time UX.",
+    color: "#fb7185",
+  },
+  {
+    name: "OpenAI",
+    short: "AI",
+    category: "AI",
+    ring: "inner",
+    level: 4,
+    years: "2+ yrs",
+    projects: ["fitmind-ai", "ssc-prep"],
+    why: "The reliable planner behind agent workflows.",
+    color: "#34d399",
+  },
 
-  // Middle — Frontend
-  { name: "React", short: "Re", category: "Frontend", ring: "middle", level: 5, years: "3+ yrs", projects: ["gym-os", "medora", "lendflow"], why: "Composability I can build my career on.", color: "#38bdf8" },
-  { name: "Next.js", short: "Nx", category: "Frontend", ring: "middle", level: 5, years: "2+ yrs", projects: ["fitmind-ai", "ssc-prep"], why: "SSR, routing and DX out of the box.", color: "#e5e7eb" },
-  { name: "TypeScript", short: "TS", category: "Frontend", ring: "middle", level: 5, years: "2+ yrs", projects: ["gym-os", "medora", "lendflow"], why: "Refactoring without fear.", color: "#60a5fa" },
-  { name: "JavaScript", short: "JS", category: "Frontend", ring: "middle", level: 5, years: "3+ yrs", projects: ["gym-os", "medora", "lendflow", "fitmind-ai"], why: "The language of the web I grew up with.", color: "#fde047" },
-  { name: "TailwindCSS", short: "Tw", category: "Frontend", ring: "middle", level: 5, years: "2+ yrs", projects: ["gym-os", "medora", "lendflow", "fitmind-ai", "ssc-prep"], why: "Design velocity without leaving the markup.", color: "#22d3ee" },
-  { name: "Vite", short: "Vt", category: "Tools", ring: "middle", level: 5, years: "2+ yrs", projects: ["gym-os", "medora", "lendflow"], why: "Instant HMR spoiled me forever.", color: "#c084fc" },
-  { name: "shadcn/ui", short: "sh", category: "Frontend", ring: "middle", level: 4, years: "1+ yr", projects: ["gym-os", "medora", "lendflow"], why: "Own your components, keep the polish.", color: "#f472b6" },
+  // Middle — Frontend / Automation
+  {
+    name: "React",
+    short: "Re",
+    category: "Frontend",
+    ring: "middle",
+    level: 5,
+    years: "3+ yrs",
+    projects: ["gym-os", "medora", "lendflow"],
+    why: "Composability I can build my career on.",
+    color: "#38bdf8",
+  },
+  {
+    name: "Next.js",
+    short: "Nx",
+    category: "Frontend",
+    ring: "middle",
+    level: 5,
+    years: "2+ yrs",
+    projects: ["fitmind-ai", "ssc-prep"],
+    why: "SSR, routing and DX out of the box.",
+    color: "#e5e7eb",
+  },
+  {
+    name: "TypeScript",
+    short: "TS",
+    category: "Frontend",
+    ring: "middle",
+    level: 5,
+    years: "2+ yrs",
+    projects: ["gym-os", "medora", "lendflow"],
+    why: "Type-safe application and test automation development.",
+    color: "#60a5fa",
+  },
+  {
+    name: "JavaScript",
+    short: "JS",
+    category: "Frontend",
+    ring: "middle",
+    level: 5,
+    years: "3+ yrs",
+    projects: ["gym-os", "medora", "lendflow", "fitmind-ai"],
+    why: "Core language for modern web applications and automation.",
+    color: "#fde047",
+  },
+  {
+    name: "Playwright",
+    short: "PW",
+    category: "Tools",
+    ring: "middle",
+    level: 4,
+    years: "1+ yr",
+    projects: [],
+    why: "Reliable end-to-end automation for modern web applications.",
+    color: "#2dd4bf",
+  },
+  {
+    name: "TailwindCSS",
+    short: "Tw",
+    category: "Frontend",
+    ring: "middle",
+    level: 5,
+    years: "2+ yrs",
+    projects: ["gym-os", "medora", "lendflow", "fitmind-ai", "ssc-prep"],
+    why: "Design velocity without leaving the markup.",
+    color: "#22d3ee",
+  },
+  {
+    name: "Vite",
+    short: "Vt",
+    category: "Tools",
+    ring: "middle",
+    level: 5,
+    years: "2+ yrs",
+    projects: ["gym-os", "medora", "lendflow"],
+    why: "Instant HMR spoiled me forever.",
+    color: "#c084fc",
+  },
+  {
+    name: "shadcn/ui",
+    short: "sh",
+    category: "Frontend",
+    ring: "middle",
+    level: 4,
+    years: "1+ yr",
+    projects: ["gym-os", "medora", "lendflow"],
+    why: "Own your components, keep the polish.",
+    color: "#f472b6",
+  },
+  // Testing — Automation
+{
+  name: "Playwright",
+  short: "Pw",
+  category: "Testing",
+  ring: "middle",
+  level: 4,
+  years: "1+ yr",
+  projects: [],
+  why: "Reliable end-to-end browser automation with modern web testing capabilities.",
+  color: "#45ba8a",
+},
 
-  // Outer — Infra
-  { name: "Firebase", short: "Fb", category: "Cloud", ring: "outer", level: 5, years: "2+ yrs", projects: ["gym-os", "medora", "fitmind-ai", "ssc-prep"], why: "Auth + realtime in minutes.", color: "#fb923c" },
-  { name: "PostgreSQL", short: "Pg", category: "Database", ring: "outer", level: 4, years: "1.5+ yrs", projects: ["gym-os", "lendflow"], why: "Relational sanity + JSON when needed.", color: "#60a5fa" },
-  { name: "MySQL", short: "My", category: "Database", ring: "outer", level: 3, years: "1+ yr", projects: [], why: "Where I first learned to think in tables.", color: "#38bdf8" },
-  { name: "Git", short: "Gt", category: "Tools", ring: "outer", level: 5, years: "3+ yrs", projects: [], why: "My time machine.", color: "#f97316" },
-  { name: "GitHub", short: "Gh", category: "Tools", ring: "outer", level: 5, years: "3+ yrs", projects: [], why: "120+ contributions and counting.", color: "#e5e7eb" },
-  { name: "Linux", short: "Lx", category: "DevOps", ring: "outer", level: 4, years: "2+ yrs", projects: [], why: "The environment I actually think in.", color: "#fbbf24" },
-  { name: "Docker", short: "Dk", category: "DevOps", ring: "outer", level: 3, years: "1+ yr", projects: ["gym-os"], why: "Ship once, run anywhere.", color: "#38bdf8" },
-  { name: "Vercel", short: "Vc", category: "Cloud", ring: "outer", level: 5, years: "2+ yrs", projects: ["gym-os", "medora", "lendflow", "fitmind-ai", "ssc-prep"], why: "Push to main, ship to the world.", color: "#e5e7eb" },
+{
+  name: "Selenium",
+  short: "Se",
+  category: "Testing",
+  ring: "outer",
+  level: 4,
+  years: "1+ yr",
+  projects: [],
+  why: "Industry-standard browser automation and cross-browser testing.",
+  color: "#43b02a",
+},
+
+{
+  name: "Cucumber",
+  short: "Cu",
+  category: "Testing",
+  ring: "outer",
+  level: 3,
+  years: "1+ yr",
+  projects: [],
+  why: "BDD-based testing that connects business scenarios with automated tests.",
+  color: "#23d96c",
+},
+
+  // Outer — Infrastructure / Testing
+  {
+    name: "Firebase",
+    short: "Fb",
+    category: "Cloud",
+    ring: "outer",
+    level: 5,
+    years: "2+ yrs",
+    projects: ["gym-os", "medora", "fitmind-ai", "ssc-prep"],
+    why: "Auth + realtime in minutes.",
+    color: "#fb923c",
+  },
+  {
+    name: "PostgreSQL",
+    short: "Pg",
+    category: "Database",
+    ring: "outer",
+    level: 4,
+    years: "1.5+ yrs",
+    projects: ["gym-os", "lendflow"],
+    why: "Relational sanity + JSON when needed.",
+    color: "#60a5fa",
+  },
+  {
+    name: "MySQL",
+    short: "My",
+    category: "Database",
+    ring: "outer",
+    level: 3,
+    years: "1+ yr",
+    projects: [],
+    why: "Where I first learned to think in tables.",
+    color: "#38bdf8",
+  },
+  {
+    name: "Git",
+    short: "Gt",
+    category: "Tools",
+    ring: "outer",
+    level: 5,
+    years: "3+ yrs",
+    projects: [],
+    why: "My time machine.",
+    color: "#f97316",
+  },
+  {
+    name: "GitHub",
+    short: "Gh",
+    category: "Tools",
+    ring: "outer",
+    level: 5,
+    years: "3+ yrs",
+    projects: [],
+    why: "120+ contributions and counting.",
+    color: "#e5e7eb",
+  },
+  {
+    name: "Linux",
+    short: "Lx",
+    category: "DevOps",
+    ring: "outer",
+    level: 4,
+    years: "2+ yrs",
+    projects: [],
+    why: "The environment I actually think in.",
+    color: "#fbbf24",
+  },
+  {
+    name: "Docker",
+    short: "Dk",
+    category: "DevOps",
+    ring: "outer",
+    level: 3,
+    years: "1+ yr",
+    projects: ["gym-os"],
+    why: "Ship once, run anywhere.",
+    color: "#38bdf8",
+  },
+  {
+    name: "Vercel",
+    short: "Vc",
+    category: "Cloud",
+    ring: "outer",
+    level: 5,
+    years: "2+ yrs",
+    projects: ["gym-os", "medora", "lendflow", "fitmind-ai", "ssc-prep"],
+    why: "Push to main, ship to the world.",
+    color: "#e5e7eb",
+  },
+  {
+    name: "Selenium",
+    short: "Se",
+    category: "Tools",
+    ring: "outer",
+    level: 3,
+    years: "1+ yr",
+    projects: [],
+    why: "Cross-browser automation and web testing.",
+    color: "#22c55e",
+  },
+  {
+    name: "Cucumber",
+    short: "Cu",
+    category: "Tools",
+    ring: "outer",
+    level: 3,
+    years: "1+ yr",
+    projects: [],
+    why: "Behavior-driven testing with readable scenarios.",
+    color: "#84cc16",
+  },
 ];
-
 export const education = {
   university: "Chandigarh University",
   degree: "Bachelor of Engineering · Computer Science",
@@ -204,7 +517,7 @@ export const education = {
 };
 
 export const timeline = [
-  { year: "2004", title: "Born", body: "Where the story begins." },
+  { year: "2003", title: "Born", body: "Where the story begins." },
   { year: "2022", title: "Started BE CSE", body: "Joined Chandigarh University, Computer Science Engineering." },
   { year: "2023", title: "Full Stack Development", body: "First real web apps; fell in love with React and shipping." },
   { year: "2024", title: "Entered Generative AI", body: "Built the AI SSC Platform, earned NPTEL Elite certification." },
@@ -219,7 +532,18 @@ export const experience = [
   { role: "Freelancer", org: "Independent", body: "Designing and building AI-powered web apps for clients." },
   { role: "Open Source Contributor", org: "GitHub", body: "Contributing to and maintaining AI / web tooling." },
 ];
-
+export const technicalLabs = [
+  {
+    name: "Playwright Automation",
+    note: "JavaScript · TypeScript · E2E Testing",
+    href: "https://github.com/Manoranjan09/Playwright-Automation-TESTING",
+  },
+  {
+    name: "LangGraph Tutorials & Workflows",
+    note: "LangGraph · LLM Workflows · Chatbot",
+    href: "https://github.com/Manoranjan09/Langgraph_Practicals",
+  },
+];
 export const codingProfiles = [
   { name: "GitHub", value: "120+", sub: "contributions · some private repos", href: "https://github.com/Manoranjan09" },
   { name: "LeetCode", value: "Active", sub: "@manoranjan507", href: "https://leetcode.com/u/manoranjan507/" },
@@ -233,7 +557,7 @@ export const achievements = [
   { title: "Production-grade AI SaaS", detail: "FitMind AI, Gym OS, Medora, SSC Prep" },
   { title: "Multiple Live Deployments", detail: "5+ products shipped on Vercel" },
   { title: "120+ GitHub Contributions", detail: "Consistent open-source activity" },
-  { title: "Blockchain Programs", detail: "Infosys Springboard · Metacrafters · CU" },
+  { title: "Playwright Automation Testing",detail: "JavaScript & TypeScript · Rahul Shetty Academy" },
 ];
 
 export const beyond = [
@@ -248,8 +572,8 @@ export const beyond = [
 ];
 
 export const nowBuilding = [
-  { name: "Gym OS", note: "Scaling memberships, billing, and analytics." },
-  { name: "AI Agents", note: "Tool-using, memory-aware micro-agents." },
+  { name: "Langgraph", note: "Building a chatbot with LangGraph." },
+  { name: "Playwright", note: "Exploring automation testing with JS/TS." },
   { name: "RAG Applications", note: "Production-quality retrieval pipelines." },
   { name: "Modern SaaS Platforms", note: "Polished products for real users." },
   { name: "Open Source", note: "Small PRs, real impact." },

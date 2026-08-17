@@ -1,4 +1,4 @@
-import { codingProfiles } from "@/data/universe";
+import { codingProfiles, technicalLabs } from "@/data/universe";
 import { ArrowUpRight } from "lucide-react";
 
 export function StatsCard() {
@@ -8,18 +8,56 @@ export function StatsCard() {
     const v = Math.abs(seed);
     return Math.min(1, v + i / 200);
   });
+
   return (
     <div className="flex h-full flex-col gap-3">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-xs uppercase tracking-[0.2em] text-white/40">Signals</div>
-          <div className="text-lg font-semibold text-white">Coding profiles</div>
+          <div className="text-xs uppercase tracking-[0.2em] text-white/40">
+            Signals
+          </div>
+
+          <div className="text-lg font-semibold text-white">
+            Coding profiles
+          </div>
         </div>
+
         <div className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2 py-0.5 text-[10px] text-emerald-300">
           ● active
         </div>
       </div>
+      {/* Technical Labs */}
+      <div className="mt-1">
+        <div className="mb-2 text-[10px] uppercase tracking-[0.18em] text-white/35">
+          Technical Labs
+        </div>
 
+        <div className="grid gap-2">
+          {technicalLabs.map((lab) => (
+            <a
+              key={lab.name}
+              href={lab.href}
+              target="_blank"
+              rel="noreferrer"
+              className="group relative flex items-center justify-between overflow-hidden rounded-xl border border-orange-400/25 bg-orange-400/[0.04] px-3 py-2 shadow-[0_0_24px_rgba(249,115,22,0.12)] transition-all duration-300 hover:border-orange-400/50 hover:bg-orange-400/[0.08] hover:shadow-[0_0_32px_rgba(249,115,22,0.22)]"
+            >
+              <div className="min-w-0">
+                <div className="text-xs font-medium text-white">
+                  {lab.name}
+                </div>
+
+                <div className="mt-0.5 truncate text-[10px] text-white/40">
+                  {lab.note}
+                </div>
+              </div>
+
+              <ArrowUpRight className="ml-3 h-3.5 w-3.5 shrink-0 text-white/25 transition group-hover:text-orange-300" />
+            </a>
+          ))}
+        </div>
+      </div>
+      {/* Coding Profiles */}
       <div className="grid grid-cols-2 gap-2">
         {codingProfiles.map((p) => (
           <a
@@ -31,19 +69,30 @@ export function StatsCard() {
           >
             <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-white/40">
               {p.name}
+
               <ArrowUpRight className="h-3 w-3 opacity-0 transition group-hover:opacity-100" />
             </div>
-            <div className="mt-1 text-xl font-semibold text-white">{p.value}</div>
-            <div className="text-[10px] text-white/50">{p.sub}</div>
+
+            <div className="mt-1 text-xl font-semibold text-white">
+              {p.value}
+            </div>
+
+            <div className="text-[10px] text-white/50">
+              {p.sub}
+            </div>
           </a>
         ))}
       </div>
 
+
+
+      {/* GitHub Contributions */}
       <div className="mt-auto">
         <div className="mb-1.5 flex items-center justify-between text-[10px] uppercase tracking-wider text-white/40">
           <span>GitHub contributions</span>
           <span className="text-white/60">120+ this year</span>
         </div>
+
         <div className="grid grid-flow-col grid-rows-7 gap-[3px]">
           {cells.map((v, i) => (
             <div
