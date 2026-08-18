@@ -136,14 +136,14 @@ function CertificateCard({
 
           {/* Google Drive button */}
           <a
-            href={certificate.link}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[10px] font-medium text-white/75 transition-all duration-200 hover:border-orange-400/30 hover:bg-orange-400/10 hover:text-orange-200"
-          >
-            <ExternalLink className="h-3 w-3" />
-            View Certificate
-          </a>
+  href={certificate.link}
+  target="_blank"
+  rel="noreferrer"
+  className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[10px] font-medium text-black shadow-[0_8px_25px_-10px_rgba(255,255,255,0.8)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/90"
+>
+  <ExternalLink className="h-3 w-3" />
+  View Certificate
+</a>
         </div>
       </div>
     </div>
