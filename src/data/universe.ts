@@ -504,6 +504,7 @@ export const education = {
   degree: "Bachelor of Engineering · Computer Science",
   duration: "August 2022 — June 2026",
   cgpa: "7.53",
+  resultLink : "https://drive.google.com/file/d/1UrzcIRGXynlKdOCojnYkIQU0jUuk_qZD/view?usp=sharing",
   semesters: [
     { sem: "1", gpa: 7.46 },
     { sem: "2", gpa: 7.54 },
