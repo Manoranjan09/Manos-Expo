@@ -516,7 +516,27 @@ export const education = {
     { sem: "8", gpa: 7.25 },
   ],
 };
+export const researchPapers = [
+  {
+    title: "Air Quality Monitoring Systems in Cities like Delhi Using IoT",
+    year: "2026",
+    type: "Research Paper",
+    authors: "Manoranjan Kumar · Prince Kumar ",
+    description:
+      "A study of IoT-based air quality monitoring systems, focusing on real-time environmental sensing, data transmission, cloud analytics, scalability, and smart-city applications.",
+    link: "https://drive.google.com/file/d/1rp1JRI57c0gj-Qqjg7kCbujNVRlUdwT0/view?usp=sharing",
+  },
 
+  {
+    title: "IoT Based Accident Detection And Emergency System Using AI",
+    year: "2026",
+    type: "Research Paper",
+    authors: "Manoranjan Kumar · Keshav Singh · Abhay Kumar · Pratham Chauhan",
+    description:
+      "An AI and IoT-based accident detection and emergency response system using sensors, GPS, machine learning, and cloud communication for faster emergency notification.",
+    link: "https://drive.google.com/file/d/1V3Md1erNjE3AjM2eOyCmIV2LhCrIBu50/view?usp=sharing",
+  },
+];
 export const timeline = [
   { year: "2003", title: "Born", body: "Where the story begins." },
   { year: "2022", title: "Started BE CSE", body: "Joined Chandigarh University, Computer Science Engineering." },

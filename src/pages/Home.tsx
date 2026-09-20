@@ -22,6 +22,7 @@ import { Cursor } from "@/components/universe/Cursor";
 import { JarvisLabel } from "@/components/universe/JarvisLabel";
 import { useEffect, useState } from "react";
 import { CertificationsCard } from "@/components/universe/CertificationsCard";
+import { ResearchCard } from "@/components/universe/ResearchCard";
 
 
 export default function Home() {
@@ -58,7 +59,7 @@ useEffect(() => {
           <GlassCard id="now" span="sm" className="lg:col-span-3"><NowBuildingCard /></GlassCard>
 
           <GlassCard id="education" span="lg"><EducationCard /></GlassCard>
-
+          <GlassCard id="research" span="lg"><ResearchCard /></GlassCard>
 
 <GlassCard id="certifications" span="lg">
   <CertificationsCard />
