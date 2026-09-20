@@ -15,7 +15,7 @@ const navLinks = [
 const socials = [
   { label: "GitHub", href: profile.links.github, icon: SiGithub, },
   { label: "LinkedIn", href: profile.links.linkedin, icon: Linkedin },
-  { label: "LeetCode", href: "https://leetcode.com/", icon: Code2 },
+  { label: "LeetCode", href: "https://leetcode.com/u/manoranjan507/", icon: Code2 },
 ];
 
 export function FooterSignature() {
