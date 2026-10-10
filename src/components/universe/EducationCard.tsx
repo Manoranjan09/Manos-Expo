@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { GraduationCap, ExternalLink } from "lucide-react";
 import { education } from "@/data/universe";
+import universityLogo from "@/assets/chandigarh-university.png";
 
 export function EducationCard() {
   const max = 10;
@@ -9,18 +10,31 @@ export function EducationCard() {
     <div className="flex h-full flex-col gap-3">
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
-        {/* Education Information */}
-        <div className="min-w-0">
+        {/* University Information */}
+        <div className="min-w-0 flex-1">
           <div className="text-xs uppercase tracking-[0.2em] text-white/40">
             Education
           </div>
 
-          <div className="text-lg font-semibold text-white">
-            {education.university}
-          </div>
+          {/* University Logo + Name */}
+          <div className="mt-2 flex min-w-0 items-center gap-3">
+            <div className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl border border-white/10 bg-white p-1.5 shadow-[0_0_20px_rgba(249,115,22,0.08)]">
+              <img
+                src={universityLogo}
+                alt="Chandigarh University logo"
+                className="h-full w-full object-contain"
+              />
+            </div>
 
-          <div className="text-[11px] text-white/50">
-            {education.degree} · {education.duration}
+            <div className="min-w-0">
+              <div className="text-lg font-semibold text-white">
+                {education.university}
+              </div>
+
+              <div className="text-[11px] text-white/50">
+                {education.degree} · {education.duration}
+              </div>
+            </div>
           </div>
         </div>
 
