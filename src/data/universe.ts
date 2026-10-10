@@ -1,6 +1,10 @@
 import profileImage from "@/assets/profile.jpeg";
 import gallery1 from "@/assets/gallery-1.jpg";
-
+import gymOsLogo from "@/assets/projects/gym-os.png";
+import fitMindLogo from "@/assets/projects/fitmind-ai.png";
+import sscPrepLogo from "@/assets/projects/ssc-prep.png";
+import medoraLogo from "@/assets/projects/medora.png";
+import lendFlowLogo from "@/assets/projects/lendflow.png";
 import prof1 from "@/assets/prof-1.jpg";
 import prof2 from "@/assets/prof-2.jpg";
 import prof3 from "@/assets/prof-3.jpg";
@@ -103,6 +107,7 @@ export const projects = [
   {
     id: "gym-os",
     name: "Gym OS",
+    logo: gymOsLogo,
     tagline:
       "AI-powered Gym Management Platform — memberships, attendance, billing, QR check-ins, analytics, and complete gym administration.",
     stack: ["React", "TypeScript", "Vite", "TailwindCSS", "shadcn/ui", "FastAPI", "Firebase", "PostgreSQL", "TanStack Query"],
@@ -117,6 +122,7 @@ export const projects = [
   {
     id: "fitmind-ai",
     name: "FitMind AI",
+    logo: fitMindLogo,
     tagline:
       "AI-powered Fitness SaaS — intelligent workout generation, conversational AI coach, tracking, and personalized recommendations.",
     stack: ["Next.js", "TypeScript", "FastAPI", "LangChain", "Firebase", "Groq", "Tailwind CSS"],
@@ -131,6 +137,7 @@ export const projects = [
   {
     id: "ssc-prep",
     name: "AI SSC Preparation Platform",
+    logo: sscPrepLogo,
     tagline:
       "RAG-powered SSC learning platform — doubt solving, quiz generation, personalized roadmaps, and adaptive practice.",
     stack: ["Next.js", "FastAPI", "LangChain", "HuggingFace", "Firebase", "TailwindCSS"],
@@ -145,6 +152,7 @@ export const projects = [
   {
     id: "medora",
     name: "Medora Hospital Management",
+    logo: medoraLogo,
     tagline:
       "Full-stack hospital platform with appointments, patient management, emergency services, doctor dashboards, and AI-assisted workflows.",
     stack: ["React", "TypeScript", "FastAPI", "Firebase", "TailwindCSS"],
@@ -159,6 +167,7 @@ export const projects = [
   {
     id: "lendflow",
     name: "LendFlow AI",
+    logo: lendFlowLogo,
     tagline:
       "Loan & finance management platform with intelligent dashboards, customer tracking, payment analytics, and modern UI.",
     stack: ["React", "FastAPI", "PostgreSQL", "TypeScript", "TailwindCSS"],
